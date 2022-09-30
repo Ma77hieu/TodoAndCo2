@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -31,6 +33,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 25, unique: true)]
     #[Assert\NotBlank(message:"Vous devez saisir un nom d'utilisateur.")]
     private $username;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Task::class, orphanRemoval: true)]
+    private Collection $task;
+
+    public function __construct()
+    {
+        $this->task = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -127,5 +137,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername($username): void
     {
         $this->username = $username;
+    }
+
+    /**
+     * @return Collection<int, Task>
+     */
+    public function getTask(): Collection
+    {
+        return $this->task;
+    }
+
+    public function addTask(Task $task): self
+    {
+        if (!$this->task->contains($task)) {
+            $this->task->add($task);
+            $task->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTask(Task $task): self
+    {
+        if ($this->task->removeElement($task)) {
+            // set the owning side to null (unless already changed)
+            if ($task->getUser() === $this) {
+                $task->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
