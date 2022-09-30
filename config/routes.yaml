@@ -35,7 +35,7 @@ task_delete:
     controller: App\Controller\TaskController::deleteTaskAction
 
 user_list:
-    path: /users
+    path: /admin/users
     controller: App\Controller\UserController::listAction
 
 user_create:
@@ -43,5 +43,5 @@ user_create:
     controller: App\Controller\UserController::createAction
 
 user_edit:
-    path: /users/{id}/edit
+    path: /admin/users/{id}/edit
     controller: App\Controller\UserController::editAction
