@@ -18,10 +18,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 60, unique: true)]
+    #[ORM\Column(type: 'string', length: 60)]
     #[Assert\NotBlank(message:"Vous devez saisir une adresse email.")]
     #[Assert\Email(message:"Le format de l'adresse n'est pas correcte.")]
-    #[Assert\Unique(message:"Cet email a déjà un compte associé.")]
+    /*#[Assert\Unique(message:"Cet email a déjà un compte associé.")]*/
     private $email;
 
     #[ORM\Column(type: 'json')]
