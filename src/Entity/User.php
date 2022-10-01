@@ -6,11 +6,13 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity('email', message:"Cet email a déjà un compte associé.")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -18,10 +20,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 60)]
-    #[Assert\NotBlank(message:"Vous devez saisir une adresse email.")]
+    #[ORM\Column(type: 'string', length: 60, unique: true)]
     #[Assert\Email(message:"Le format de l'adresse n'est pas correcte.")]
-    /*#[Assert\Unique(message:"Cet email a déjà un compte associé.")]*/
+    #[Assert\NotBlank(message:"Vous devez saisir une adresse email.")]
     private $email;
 
     #[ORM\Column(type: 'json')]
