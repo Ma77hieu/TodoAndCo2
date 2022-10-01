@@ -20,9 +20,14 @@ class TaskController extends AbstractController
         $this->em = $em;
     }
 
-    public function listAction()
+    public function listAction(Request $request)
     {
-        return $this->render('task/list.html.twig', ['tasks' => $this->em->getRepository(Task::class)->findAll()]);
+        $user=$this->getUser();
+        return $this->render(
+            'task/list.html.twig',
+            ['tasks' => $this->em->getRepository(Task::class)->findAll(),
+                'user' => $user]
+        );
     }
 
 
