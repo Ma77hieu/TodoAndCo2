@@ -1,6 +1,7 @@
 <?php
 namespace App\tests;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserControllerTest extends WebTestCase
@@ -70,4 +71,74 @@ class UserControllerTest extends WebTestCase
             $this->client->getResponse()->getContent()
         );
     }
+
+    /**
+     * Test access to users list if admin
+     */
+    public function testListUserOk(): void
+    {
+        $this->loginUser(true);
+        $crawler = $this->client->request('GET', '/admin/users');
+        $this->assertResponseIsSuccessful();
+    }
+
+    /**
+     * Test access to users list denied if not admin
+     */
+    public function testListUserNotAdmin(): void
+    {
+        $this->loginUser(false);
+        $crawler = $this->client->request('GET', '/admin/users');
+        $this->assertEquals(
+            403,
+            $this->client->getResponse()->getStatusCode()
+        );
+    }
+
+    /**
+     * Login a user for tests
+     * @param $isAdmin true if need to log user that is admin
+     */
+    public function loginUser($isAdmin)
+    {
+        $userRepository = static::getContainer()->get(UserRepository::class);
+
+        // retrieve the test user
+        if ($isAdmin == true) {
+            $testUser = $userRepository->findOneByEmail('mat@hotmail.com');
+        } else {
+            $testUser = $userRepository->findOneByEmail('test@hotmail.com');
+        }
+
+        // simulate $testUser being logged in
+        $this->client->loginUser($testUser);
+    }
+
+    /**
+     * Test access to user modification page is denied if not admin
+     */
+    public function testUserModifNotAdmin(): void
+    {
+        $this->loginUser(false);
+        $crawler = $this->client->request('GET', '/admin/users/1/edit');
+        $this->assertEquals(
+            403,
+            $this->client->getResponse()->getStatusCode()
+        );
+    }
+
+    /**
+     * Test access to user modification page is denied if not admin
+     */
+    public function testUserModifOk(): void
+    {
+        $this->loginUser(true);
+        $crawler = $this->client->request('GET', '/admin/users/1/edit');
+        $this->assertEquals(
+            200,
+            $this->client->getResponse()->getStatusCode()
+        );
+    }
+
+
 }
