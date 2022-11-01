@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
+<phpunit>
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <server name="APP_ENV" value="test" force="true"/>
+        <server name="SHELL_VERBOSITY" value="-1"/>
+        <server name="SYMFONY_PHPUNIT_REMOVE" value=""/>
+        <server name="SYMFONY_PHPUNIT_VERSION" value="7.5"/>
+        <server name="KERNEL_CLASS" value="App\Kernel"/>
+        <server name="DATABASE_URL" value="mysql://useradmin:CafeFrappe42%21@127.0.0.1:3306/TodoAndCo?serverVersion=mariadb-10.7.3"/>
+    </php>
+    <testsuites>
+        <testsuite name="alltests">
+            <directory>./tests</directory>
+            <exclude>./tests/Controller/DefaultControllerTest.php</exclude>
+        </testsuite>
+    </testsuites>
+    <extensions>
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+    </extensions>
+</phpunit>
