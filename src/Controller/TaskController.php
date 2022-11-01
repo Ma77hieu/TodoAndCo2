@@ -35,12 +35,17 @@ class TaskController extends AbstractController
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
+        $user=$this->getUser();
+        if ($user == null) {
+            return $this->redirectToRoute('login');
+
+        }
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             /*$em = $this->getDoctrine()->getManager();*/
-
+            $task->setUser($user);
             $this->em->persist($task);
             $this->em->flush();
 
