@@ -76,6 +76,76 @@ class TaskControllerTest extends WebTestCase
     }
 
     /**
+     * Tests a correct task edition
+     */
+    public function testEditTaskOk(): void
+    {
+        $this->loginUser(true);
+        $crawler = $this->client->request('GET', '/tasks/3/edit');
+        //finding the add_user button
+        $buttonCrawlerNode = $crawler->selectButton('edit_task');
+
+        // retrieve the Form object for the form belonging to this button
+        $form = $buttonCrawlerNode->form();
+
+        // set values on a form object
+        $form['task[title]'] = 'Test modification';
+        $form['task[content]']= 'Nouvelle description après modification';
+
+        // submit the Form object
+        $this->client->submit($form);
+
+        $this->assertStringContainsString(
+            'La tâche a bien été modifiée.',
+            $this->client->getResponse()->getContent()
+        );
+    }
+
+    /**
+     * Tests a correct task toggle
+     */
+    public function testToggleTaskOk(): void
+    {
+        $this->loginUser(true);
+        $crawler = $this->client->request('GET', '/tasks');
+        //finding the add_user button
+        $buttonCrawlerNode = $crawler->selectButton('toggle_task_4');
+
+        // retrieve the Form object for the form belonging to this button
+        $form = $buttonCrawlerNode->form();
+
+        // submit the Form object
+        $this->client->submit($form);
+
+        $this->assertStringContainsString(
+            'La tâche Impots a bien été marquée comme faite',
+            $this->client->getResponse()->getContent()
+        );
+    }
+
+    /**
+     * Tests a correct task deletion
+     */
+    public function testDeleteTaskOk(): void
+    {
+        $this->loginUser(true);
+        $crawler = $this->client->request('GET', '/tasks');
+        //finding the add_user button
+        $buttonCrawlerNode = $crawler->selectButton('delete_task_4');
+
+        // retrieve the Form object for the form belonging to this button
+        $form = $buttonCrawlerNode->form();
+
+        // submit the Form object
+        $this->client->submit($form);
+
+        $this->assertStringContainsString(
+            'La tâche a bien été supprimée.',
+            $this->client->getResponse()->getContent()
+        );
+    }
+
+    /**
      * Login a user for tests
      * @param $isAdmin true if need to log user that is admin
      */
@@ -93,5 +163,4 @@ class TaskControllerTest extends WebTestCase
         // simulate $testUser being logged in
         $this->client->loginUser($testUser);
     }
-
 }

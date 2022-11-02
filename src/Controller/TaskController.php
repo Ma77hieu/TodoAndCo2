@@ -66,7 +66,7 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($user === $task->getUser()) {
+            if ($user === $task->getUser() ||  in_array('ROLE_ADMIN',$user->getRoles())) {
                 $this->em->flush();
                 $this->addFlash('success', 'La tâche a bien été modifiée.');
             } else {
@@ -87,8 +87,16 @@ class TaskController extends AbstractController
     {
         $task->toggle(!$task->isDone());
         $this->em->flush();
+        if ($task->isDone()) {
+            $tasktoggleInfo = 'faite';
+        } else {
+            $tasktoggleInfo = 'à faire';
+        }
 
-        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+        $this->addFlash(
+            'success',
+            sprintf('La tâche %s a bien été marquée comme %s.', $task->getTitle(), $tasktoggleInfo)
+        );
 
         return $this->redirectToRoute('task_list');
     }
