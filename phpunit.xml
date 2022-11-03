@@ -19,4 +19,9 @@
     <extensions>
         <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
     </extensions>
+    <coverage>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </coverage>
 </phpunit>

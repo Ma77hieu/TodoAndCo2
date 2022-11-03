@@ -20,6 +20,6 @@ in order to create the database tables, run
 Create a .env.test.local file by copying the .env.test file. 
 Add the DATABASE_URL constant corresponding to your test database
 
-### 7. Run tests
+### 7. Run tests with coverage report
 In order to run all the required tests,
-run  `bin/phpunit --testsuite alltests`
+run  `symfony php bin/phpunit --testsuite alltests --coverage-text`
