@@ -16,9 +16,11 @@ run `php bin/console doctrine:database:create`
 in order to create the database tables, run
 `php bin/console doctrine:migrations:migrate`
 
-### 6. Tests configuration
+### 6. Tests configuration and fixtures
 Create a .env.test.local file by copying the .env.test file. 
 Add the DATABASE_URL constant corresponding to your test database
+You can find the content of the test database corresponding to the tests in the file
+testDbFixture/TodoAndCo_test.sql
 
 ### 7. Run tests with coverage report
 In order to run all the required tests,
