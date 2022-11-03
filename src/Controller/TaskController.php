@@ -44,8 +44,11 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $now = new \DateTime();
+            $now->format('Y-m-d H:i:s');
             /*$em = $this->getDoctrine()->getManager();*/
             $task->setUser($user);
+            $task->setCreatedAt($now);
             $this->em->persist($task);
             $this->em->flush();
 

@@ -22,4 +22,5 @@ Add the DATABASE_URL constant corresponding to your test database
 
 ### 7. Run tests with coverage report
 In order to run all the required tests,
-run  `symfony php bin/phpunit --testsuite alltests --coverage-text`
+run  `symfony php bin/phpunit --testsuite alltests --coverage-html coverageReportHtml`
+To view the coverage report, open the dashboard.html file inside the coverageReportHtml directory

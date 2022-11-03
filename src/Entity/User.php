@@ -143,7 +143,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Task>
      */
-    public function getTask(): Collection
+    /*public function getTask(): Collection
     {
         return $this->task;
     }
@@ -168,5 +168,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
-    }
+    }*/
 }

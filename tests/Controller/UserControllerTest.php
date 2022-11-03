@@ -130,7 +130,7 @@ class UserControllerTest extends WebTestCase
     /**
      * Test access to user modification page is denied if not admin
      */
-    public function testUserModifOk(): void
+    public function testAccessUserModifOk(): void
     {
         $this->loginUser(true);
         $crawler = $this->client->request('GET', '/admin/users/1/edit');
@@ -140,5 +140,32 @@ class UserControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * Test if an admin can edit the password of a user
+     */
+    public function testUserModifPwdOk(): void
+    {
+        $this->loginUser(true);
+        $crawler = $this->client->request('GET', '/admin/users/1/edit');
+
+        //finding the add_user button
+        $buttonCrawlerNode = $crawler->selectButton('edit_user');
+
+        // retrieve the Form object for the form belonging to this button
+        $form = $buttonCrawlerNode->form();
+
+        // set values on a form object
+        $form['user[password][first]'] = 'Test72!';
+        $form['user[password][second]']= 'Test72!';
+        $form['user[roles]']->select('ROLE_ADMIN');
+
+        // submit the Form object
+        $this->client->submit($form);
+
+        $this->assertStringContainsString(
+            'utilisateur a bien été modifié',
+            $this->client->getResponse()->getContent()
+        );
+    }
 
 }
