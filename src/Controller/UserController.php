@@ -27,7 +27,7 @@ class UserController extends AbstractController
     }
 
 
-    public function createAction(Request $request,UserPasswordHasherInterface $userPwdHasherInt)
+    public function createAction(Request $request, UserPasswordHasherInterface $userPwdHasherInt)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -38,12 +38,13 @@ class UserController extends AbstractController
             /*$em = $this->getDoctrine()->getManager();*/
             /*$password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
             $user->setPassword($password);*/
-            $plainPwd=$user->getPassword();
+            $plainPwd = $user->getPassword();
             $user->setPassword(
                 $userPwdHasherInt->hashPassword(
                     $user,
                     $plainPwd
-                ));
+                )
+            );
 
             $this->em->persist($user);
             $this->em->flush();
@@ -64,16 +65,13 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            /*$password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);*/
-
-            $plainPwd=$user->getPassword();
+            $plainPwd = $user->getPassword();
             $user->setPassword(
                 $userPwdHasherInt->hashPassword(
                     $user,
                     $plainPwd
-                ));
+                )
+            );
             $this->em->flush();
 
             $this->addFlash('success', "L'utilisateur a bien été modifié");

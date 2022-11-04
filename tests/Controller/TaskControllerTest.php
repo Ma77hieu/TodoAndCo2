@@ -1,4 +1,5 @@
 <?php
+
 namespace App\tests;
 
 use App\Repository\UserRepository;
@@ -6,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TaskControllerTest extends WebTestCase
 {
-
     public function setUp(): void
     {
         $this->client = static::createClient();
@@ -25,6 +25,7 @@ class TaskControllerTest extends WebTestCase
             $this->client->getResponse()->getContent()
         );
     }
+
     /**
      * Check if task list is working when user NOT logged in
      */
@@ -64,7 +65,7 @@ class TaskControllerTest extends WebTestCase
 
         // set values on a form object
         $form['task[title]'] = 'rdv dentiste';
-        $form['task[content]']= 'Lundi 22 Oct 21, docteur machoire, 3 rue de la couronne';
+        $form['task[content]'] = 'Lundi 22 Oct 21, docteur machoire, 3 rue de la couronne';
 
         // submit the Form object
         $this->client->submit($form);
@@ -90,7 +91,7 @@ class TaskControllerTest extends WebTestCase
 
         // set values on a form object
         $form['task[title]'] = 'Test modification';
-        $form['task[content]']= 'Nouvelle description après modification';
+        $form['task[content]'] = 'Nouvelle description après modification';
 
         // submit the Form object
         $this->client->submit($form);

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\tests;
 
 use App\Repository\UserRepository;
@@ -6,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserControllerTest extends WebTestCase
 {
-
     public function setUp(): void
     {
         $this->client = static::createClient();
@@ -28,8 +28,8 @@ class UserControllerTest extends WebTestCase
         // set values on a form object
         $form['user[username]'] = 'Fabien';
         $form['user[password][first]'] = 'TestPwd2022!';
-        $form['user[password][second]']= 'TestPwd2022!';
-        $form['user[email]']= 'test@hotmail.com';
+        $form['user[password][second]'] = 'TestPwd2022!';
+        $form['user[email]'] = 'test@hotmail.com';
         $form['user[roles]']->select('ROLE_USER');
 
 
@@ -58,8 +58,8 @@ class UserControllerTest extends WebTestCase
         // set values on a form object
         $form['user[username]'] = 'Fabien';
         $form['user[password][first]'] = 'TestPwd2022!';
-        $form['user[password][second]']= 'TestPwd2022!';
-        $form['user[email]']= 'test2@hotmail.com';
+        $form['user[password][second]'] = 'TestPwd2022!';
+        $form['user[email]'] = 'test2@hotmail.com';
         $form['user[roles]']->select('ROLE_USER');
 
 
@@ -156,7 +156,7 @@ class UserControllerTest extends WebTestCase
 
         // set values on a form object
         $form['user[password][first]'] = 'Test72!';
-        $form['user[password][second]']= 'Test72!';
+        $form['user[password][second]'] = 'Test72!';
         $form['user[roles]']->select('ROLE_ADMIN');
 
         // submit the Form object
@@ -167,5 +167,4 @@ class UserControllerTest extends WebTestCase
             $this->client->getResponse()->getContent()
         );
     }
-
 }

@@ -15,5 +15,6 @@
     <file>public/</file>
     <file>src/</file>
     <file>tests/</file>
+    <exclude-pattern>public/config.php</exclude-pattern>
 
 </ruleset>

@@ -1,11 +1,11 @@
 <?php
+
 namespace App\tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecurityControllerTest extends WebTestCase
 {
-
     public function setUp(): void
     {
         $this->client = static::createClient();
@@ -26,7 +26,7 @@ class SecurityControllerTest extends WebTestCase
 
         // set values on a form object
         $form['_username'] = 'user1';
-        $form['_password']= 'Test42!';
+        $form['_password'] = 'Test42!';
 
         // submit the Form object
         $this->client->submit($form);
@@ -51,7 +51,7 @@ class SecurityControllerTest extends WebTestCase
 
         // set values on a form object
         $form['_username'] = 'user28';
-        $form['_password']= 'password';
+        $form['_password'] = 'password';
 
         // submit the Form object
         $this->client->submit($form);

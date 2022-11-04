@@ -1,0 +1,21 @@
+FILE: public/app_dev.php
+---------------------------------------------------------------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+---------------------------------------------------------------------------------------------------------------------------
+ 13 | ERROR | [x] The first expression of a multi-line control structure must be on the line after the opening parenthesis
+---------------------------------------------------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+---------------------------------------------------------------------------------------------------------------------------
+
+
+FILE: tests/Controller/DefaultControllerTest.php
+------------------------------------------------------------------------
+FOUND 2 ERRORS AFFECTING 2 LINES
+------------------------------------------------------------------------
+ 3 | ERROR | [x] Header blocks must be separated by a single blank line
+ 9 | ERROR | [x] Opening brace must not be followed by a blank line
+------------------------------------------------------------------------
+PHPCBF CAN FIX THE 2 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+------------------------------------------------------------------------
+
+Time: 156ms; Memory: 10MB

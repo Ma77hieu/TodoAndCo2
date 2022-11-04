@@ -22,7 +22,7 @@ class TaskController extends AbstractController
 
     public function listAction(Request $request)
     {
-        $user=$this->getUser();
+        $user = $this->getUser();
         return $this->render(
             'task/list.html.twig',
             ['tasks' => $this->em->getRepository(Task::class)->findAll(),
@@ -35,10 +35,9 @@ class TaskController extends AbstractController
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
-        $user=$this->getUser();
+        $user = $this->getUser();
         if ($user == null) {
             return $this->redirectToRoute('login');
-
         }
 
         $form->handleRequest($request);
@@ -63,13 +62,13 @@ class TaskController extends AbstractController
 
     public function editAction(Task $task, Request $request)
     {
-        $user=$this->getUser();
+        $user = $this->getUser();
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($user === $task->getUser() ||  in_array('ROLE_ADMIN',$user->getRoles())) {
+            if ($user === $task->getUser() || in_array('ROLE_ADMIN', $user->getRoles())) {
                 $this->em->flush();
                 $this->addFlash('success', 'La tâche a bien été modifiée.');
             } else {
